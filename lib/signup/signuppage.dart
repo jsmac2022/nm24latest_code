@@ -179,7 +179,7 @@ class _SignupPageState extends State<SignupPage> with SingleTickerProviderStateM
                               context, 'Sign Up', 'Create Your account'),
                           sizedboxheight(27.0),
                           signupfullname(model),
-                          sizedboxheight(22.0),
+                          sizedboxheight(44.0),
                           signupemail(model),
                           sizedboxheight(22.0),
                           signupmobile(model),
