@@ -14,6 +14,7 @@ String propertySearchWithLocationEndpoint = 'api/property/properties_location';
 //api upload profile end point
 String endpointUploadProfile = 'api/users/upload_profile';
 String endpointGenderProfile = 'api/users/compelete_profile';
+String endpointviewProfile = 'api/users/upload_profile';
 
 
 

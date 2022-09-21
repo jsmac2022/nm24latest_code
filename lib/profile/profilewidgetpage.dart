@@ -9,8 +9,6 @@ import 'package:nm24/common/formtextfield/validations_field.dart';
 import 'package:nm24/common/styles/const.dart';
 import 'package:nm24/complete%20profile/completeprofilepage.dart';
 
-
-
 Widget profilepic() {
   return SizedBox(
     width: 200,

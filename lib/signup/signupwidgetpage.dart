@@ -128,11 +128,6 @@ Widget signupBtn(context, model) {
           apiErrorAlertdialog(context, 'Please Check Condition');
         } else {
           await model.signupsubmit(context);
-          /// new code created 15 sept
-          //showFlutterToast('OTP Sent to registered mobile number.');
-          // await Provider.of<TwillioModelPage>(context, listen: false)
-          //     .otpsandtwilio('+919516580255', [''], 'inactivelogin');
-          // Get.to(() => LoginPage());
         }
       } else {
         //model.toggleautovalidate();

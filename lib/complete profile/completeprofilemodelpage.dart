@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/route_manager.dart';
@@ -59,7 +58,7 @@ class CompleteProfileModelPage extends ChangeNotifier {
     notifyListeners();
   }
 
-  //new api calling for upload profile image -->
+  //new api calling for upload profile image 20sep-->
   Future getImage(context, model) async {
     String _image;
     final picker = ImagePicker();
@@ -91,7 +90,6 @@ class CompleteProfileModelPage extends ChangeNotifier {
         .then((response) => print("api response  $response "))
         .catchError((error) => print(error));
   }
-
 
 // api for get gender 20sep->
   int _gender = 0;
@@ -186,7 +184,6 @@ class CompleteProfileModelPage extends ChangeNotifier {
       print('error $e');
     }
   }
-
 
   // get api for work_type->
   String? _workType;
@@ -283,22 +280,22 @@ class CompleteProfileModelPage extends ChangeNotifier {
   }
 
 
-
-// upload profile api
-  /*uploadProfileUpdate(context) async {
+// upload profile api created by jitendra on 21 sept
+  /*Future uploadProfileUpdate(context, model) async {
     toggleshemmerShow();
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userId = prefs.getString('userId');
+    print("userId ${userId}");
+
     Dio dio = Dio();
 
     Map<String, dynamic> rawData = {
       "id": prefs.getString('userId'),
-      "image": oldpassword.text,
-      "new_password": newPassword.text
       // "userId":"7b2bf97e-88c0-440c-82cc-96a50fd98a95"
     };
 
     print('upload Profile perams $rawData');
-    var response = await dio.post(baseUrl + endpointUploadProfile,
+    var response = await dio.post("http://134.209.229.112:8080/api/users/upload_profile?id=${prefs.getString('userId')}",
         options: Options(
           headers: {"authorization": prefs.getString('headerToken')},),
         data: rawData);
@@ -307,10 +304,10 @@ class CompleteProfileModelPage extends ChangeNotifier {
     print('upload profile responseData $responseData');
 
     try {
-      if (responseData['status'] == true) {
+      if (responseData['statuscode'] == true) {
         showFlutterToast('Profile picture Upload Successful');
         final profileview = Provider.of<ProfileModelPage>(context, listen: false);
-        await profileview.profileViewFetch(context); //ye profile update ko show kr dega
+        await profileview.profileViewFatch(context); //ye profile update ko show kr dega
 
         // Get.off(() => BottomNavBarPage());
         genderValueInitialize(context);
@@ -329,14 +326,10 @@ class CompleteProfileModelPage extends ChangeNotifier {
       print('Error: ${e.toString()}');
     }
   }
-
   // reset all fields
   resetAlltextfield() {
     id.clear();
     image.clear();
-    // mobile.clear();
-    gender.clear();
-    // newdob = null;
     // _selectedGender = '';
     notifyListeners();
   }
@@ -352,8 +345,7 @@ class CompleteProfileModelPage extends ChangeNotifier {
 
   TextEditingController id = TextEditingController();
   TextEditingController image = TextEditingController();
-  TextEditingController gender = TextEditingController();
-
+  //TextEditingController gender = TextEditingController();
 
   String _selectedGender = '';
   String get selectedGender => _selectedGender;
@@ -365,7 +357,7 @@ class CompleteProfileModelPage extends ChangeNotifier {
     final modelprofileview = Provider.of<ProfileModelPage>(context, listen: false);
     if (selectedGender == '') {
       print(selectedGender);
-      _selectedGender = modelprofileview.profileviewList[0]['Customer']['gender'] ?? '';
+      _selectedGender = modelprofileview.profileviewList[0]['step']['gender'] ?? '';
       // notifyListeners();
       return selectedGender;
     } else {
@@ -377,19 +369,6 @@ class CompleteProfileModelPage extends ChangeNotifier {
   toogleradiobtn(value) {
     _selectedGender = value;
     print(selectedGender);
-    notifyListeners();
-  }
-
-  bool _isShimmer = false;
-  bool get isShimmer => _isShimmer;
-
-  toggleshemmerShow() {
-    _isShimmer = true;
-    notifyListeners();
-  }
-
-  toggleshemmerdismis() {
-    _isShimmer = false;
     notifyListeners();
   }*/
 

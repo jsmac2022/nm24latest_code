@@ -22,7 +22,7 @@ class OtpVerifyModelPage extends ChangeNotifier {
     notifyListeners();
   }
 
-  // -- ye function change kr diya h ye user login ke status ko active krega
+  // -- ye function change kr diya h ye user login ke status ko active krega created on 8 aug by js
   otpVerifiy(context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 

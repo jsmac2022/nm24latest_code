@@ -1,9 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, prefer_const_constructors_in_immutables, avoid_print
 
-// import 'dart:io';
-import 'dart:io' as i;
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
@@ -13,8 +10,6 @@ import 'package:nm24/common/formtextfield/validations_field.dart';
 import 'package:nm24/common/styles/const.dart';
 import 'package:nm24/complete%20profile/upload%20document/uploaddocumentpage.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:image_picker/image_picker.dart';
 
 Widget linearprogressindicator(model) {
   return SizedBox(
@@ -140,7 +135,9 @@ Widget myprofilepicchange(context,model) {
         color: colorsanderchat, borderRadius: borderRadiuscircular(100.0)),
     child: GestureDetector(
       onTap: (){
-        model.getImage(context, model); //calling fun for uplode profile pic
+        model.getImage(context, model); //calling fun for upload profile pic 20sep
+        // _choose();
+        //model.uploadProfileUpdate(context, model);
       },
       child: Image(
         image: AssetImage(
@@ -368,3 +365,43 @@ Widget resetdefaultbtn(context) {
             fontSize: 18, color: colorredlight, fontStyle: FontStyle.italic),
       ));
 }
+
+// new get image api call 21sep->
+
+/*void _choose() async {
+  File file;
+  final imagePicker = ImagePicker();
+
+  file = (await imagePicker.pickImage(
+    source: ImageSource.camera,
+  )) as File;
+  if (file != null) {
+    _upload(file);
+  }
+}
+
+
+void _upload(File file) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? userId = prefs.getString('userId');
+  print("userId ${userId}");
+
+  final String endPoint = "http://134.209.229.112:8080/api/users/upload_profile?id=${prefs.getString('userId')}";
+
+  String fileName = file.path.split('/').last;
+  print(fileName);
+
+  FormData data = FormData.fromMap({
+    "image": await MultipartFile.fromFile(
+      file.path,
+      filename: fileName,
+    ),
+  });
+
+  Dio dio = Dio();
+
+  dio.post(endPoint, data: data).then((response) {
+    var jsonResponse = jsonDecode(response.toString());
+    print(jsonResponse);
+  }).catchError((error) => print(error));
+}*/
