@@ -71,7 +71,7 @@ class SignUpModelpage extends ChangeNotifier {
   TextEditingController signupPassword = TextEditingController();
 
   ///new code for singup page api call 6 sept-> by jitendra
-  var responseDataN = { "id": 0 }; //created new line code 20sep
+  //var responseDataN = { "id": 0 }; //created new line code 20sep
 
   signupsubmit(context) async {
     toggleshemmerShow();
@@ -101,10 +101,10 @@ class SignUpModelpage extends ChangeNotifier {
       if (responseData['statuscode'] == true) {
         toggleshemmerdismis();
 
-        await prefs.setString('userId', "$responseDataN");   //created new line code 20sep
-        //await prefs.setString('userId', "${responseData['data']['id']}",);
+      //await prefs.setString('userId', "$responseDataN");   //created new line code 20sep
+        await prefs.setString('userId', "$responseData");
 
-      /*  await Provider.of<TwillioModelPage>(context, listen: false)
+      /*await Provider.of<TwillioModelPage>(context, listen: false)
             .otpsandtwilio('+91', signupMobile.text, 'signup with otp');
         notifyListeners();*/
 
