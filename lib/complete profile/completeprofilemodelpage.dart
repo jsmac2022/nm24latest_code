@@ -173,7 +173,6 @@ class CompleteProfileModelPage extends ChangeNotifier {
   }
 
 
-/*
   // get api for my marital status->
   String? _marital_status;
   String? get marital_status => _marital_status;
@@ -625,7 +624,7 @@ class CompleteProfileModelPage extends ChangeNotifier {
       toggleshemmerdismis();
       print('error $e');
     }
-  }*/
+  }
 
 
 }
