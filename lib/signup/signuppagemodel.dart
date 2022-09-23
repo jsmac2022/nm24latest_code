@@ -71,8 +71,6 @@ class SignUpModelpage extends ChangeNotifier {
   TextEditingController signupPassword = TextEditingController();
 
   ///new code for singup page api call 6 sept-> by jitendra
-  //var responseDataN = { "id": 0 }; //created new line code 20sep
-
   signupsubmit(context) async {
     toggleshemmerShow();
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -100,8 +98,6 @@ class SignUpModelpage extends ChangeNotifier {
     try {
       if (responseData['statuscode'] == true) {
         toggleshemmerdismis();
-
-      //await prefs.setString('userId', "$responseDataN");   //created new line code 20sep
         await prefs.setString('userId', "$responseData");
 
       /*await Provider.of<TwillioModelPage>(context, listen: false)

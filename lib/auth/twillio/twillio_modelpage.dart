@@ -18,7 +18,6 @@ class TwillioModelPage extends ChangeNotifier {
       accountSid: accountSid, // replace with Account SID
       serviceSid: serviceSid, // replace with Service SID
       authToken: authToken, // replace with Auth Token
-      // replace with Service SID
       );
 
   String _phoneNumber = '';

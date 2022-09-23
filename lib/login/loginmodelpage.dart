@@ -80,7 +80,6 @@ class LoginModelPage extends ChangeNotifier {
     final responseData = json.decode(response.toString());
     print('login responceData $responseData');
 
-    //   toggleshemmerShow();
 
     try {
       if (responseData['statuscode'] == true) {
@@ -103,8 +102,6 @@ class LoginModelPage extends ChangeNotifier {
       else if (responseData['status'] == "Inactive") {
         toggleshemmerdismis();
         await prefs.setString('userId', responseData['UserId'],);
-        //await prefs.setString('userId', "${responseData['data'][0]['id']}");
-        // _userId = responseData['UserId'];
         notifyListeners();
 
        await Provider.of<TwillioModelPage>(context, listen: false)

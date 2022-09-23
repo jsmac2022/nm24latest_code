@@ -32,7 +32,6 @@ class CompleteProfilePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        // sizedboxheight(deviceheight(context, 0.13)),
                           sizedboxheight(10.0),
                         linearprogressindicator(model),
                         sizedboxheight(22.0),

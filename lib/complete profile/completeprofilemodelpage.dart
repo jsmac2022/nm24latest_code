@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
-
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +9,7 @@ import 'package:nm24/profile/profilepage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CompleteProfileModelPage extends ChangeNotifier {
+
   int _progressStep = 1;
   int get progressStep => _progressStep;
   incresestep() {
@@ -39,9 +39,10 @@ class CompleteProfileModelPage extends ChangeNotifier {
 
   String? _selectgender;
   String? get selectgender => _selectgender;
+
   toggleselectgender(value) {
-    getGender(gender,step);
-    print('Complete Profile Step $value');
+      getGender();
+      print('Complete Profile Step $value');
   }
 
   // new function for get api call
@@ -58,8 +59,7 @@ class CompleteProfileModelPage extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  //new api calling for upload profile image 22sep-->
+  //new POST Api calling for upload profile image 22sep-->
   String? _profilePath;
   String? get profilePath => _profilePath;
 
@@ -83,8 +83,7 @@ class CompleteProfileModelPage extends ChangeNotifier {
 
     FormData data = FormData.fromMap({
       "image": await MultipartFile.fromFile(
-        file,
-        filename: fileName,
+        file, filename: fileName,
       ),
     });
     Dio dio = Dio();
@@ -109,59 +108,45 @@ class CompleteProfileModelPage extends ChangeNotifier {
     }
   }
 
-
-
-// api for get gender 22sep->
-  String? _gender ;
-  String? get gender => _gender;
-
+  //------------GET API FOR GENDER----- 22sep->
   String? _step ;
   String? get step => _step;
 
-  getGender(String? step,String? gender) async {
+  String? _gender ;
+  String? get gender => _gender;
+
+  getGender() async {
     toggleshemmerShow();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString('userId');
-    String? step = prefs.getString('step');
-    String? gender = prefs.getString('gender');
+    String? step = '2';
+    String? gender = '1';
 
-    // Map<String, dynamic> params = {
-    //   "step": 'step',
-    //   "id": 'userId',
-    //   "gender": 'gender',
-    // };
+    Map<String, dynamic> params = {
+      "step": step,
+      "id": userId,
+      "gender": gender,
+    };
 
     Dio dio = Dio();
-
-    var response = await dio.get(baseUrl + "api/users/compelete_profile?id="
-        +prefs.getString('$userId')!+"&step="+step! + "&gender="+gender!);
-    print(' gender responseData $response');
-
-    // var response = await dio.get(baseUrl + "api/users/compelete_profile?step=$step"
-    //     + '&' + "id=$userId"
-    //     + '&' + "gender=$gender",
-    // );
-
-    // var response = await dio.get(baseUrl + "api/users/compelete_profile?step=${prefs.getString("$step")}"
-    //     + '&' + "id=$userId"
-    //     + '&' + "gender=${prefs.getString("$gender")}",
-    // );
+    var response = await dio.get(baseUrl + endpointCompeleteProfile, queryParameters: params);
+    print(' gender params response $params');
 
     final responseData = json.decode(response.toString());
-    print('upload gender responceData $responseData');
+    print('gender responseData $responseData');
 
     try {
       if (responseData['statuscode'] == true) {
-
-        _step = await responseData["$step"];
-        userId = await responseData["$userId"];
-        _gender = await responseData["$gender"];
+        _gender = gender;
+        _step = step;
 
         notifyListeners();
         toggleshemmerdismis();
       } else {
+        _step = "";
+        userId = "";
         _gender = "";
-         _step = "";
+
         notifyListeners();
         toggleshemmerdismis();
         print(responseData['message']);
@@ -172,38 +157,54 @@ class CompleteProfileModelPage extends ChangeNotifier {
     }
   }
 
-
-  // get api for my marital status->
-  String? _marital_status;
-  String? get marital_status => _marital_status;
+  // get api for marital status->
+  String? _martial_status;
+  String? get martial_status => _martial_status;
   getMaritalStatus() async {
-    // print('get genderId $genderId');
     toggleshemmerShow();
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userId = prefs.getString('userId');
+    String? step = '3';
+    String? martial_status = '1';
+
+    Map<String, dynamic> params = {
+      "step": step,
+      "id": userId,
+      "martial_status": martial_status,
+    };
+
     Dio dio = Dio();
+    print(' martial_status params response $params');
+    var response = await dio.get(baseUrl + endpointCompeleteProfile, queryParameters: params);
 
-    var response = await dio.get(baseUrl + '/api/users/upload_profile?'
-        'step=${prefs.getString('step')},' +
-        'id=${prefs.getString('userid')},' +
-        'marital_status=${prefs.getString('marital_status')}',
-    );
+    /*var response = await dio.get(baseUrl + "api/users/compelete_profile?id="
+        "prefs.getString('$userId')" + "&step=$step" + "&gender=$gender", queryParameters: params);
+    print(' gender responseData $response');*/
 
-    print(' marital response $response');
+
+    // var response = await dio.get(baseUrl + '/api/users/upload_profile?'
+    //     'step=${prefs.getString('step')},' +
+    //     'id=${prefs.getString('userid')},' +
+    //     'marital_status=${prefs.getString('marital_status')}',
+    // );
+
+
     final responseData = json.decode(response.toString());
-    // print('vanderShopList responceData $responseData');
+    print(' martial_status responseData $responseData');
 
     try {
       if (responseData['statuscode'] == true) {
-
-       // _marital_status = responseData['data'];
-        _marital_status = await responseData["$marital_status"];
+        _martial_status = martial_status;
+        _step = step;
 
         notifyListeners();
         toggleshemmerdismis();
       } else {
-        _marital_status = responseData['data'];
-        notifyListeners();
+        _step = "";
+        userId = "";
+        _martial_status = "";
 
+        notifyListeners();
         toggleshemmerdismis();
         print(responseData['message']);
       }
@@ -215,42 +216,41 @@ class CompleteProfileModelPage extends ChangeNotifier {
 
 
   // get api for work_type->
-  String? _workType;
-  String? get workType => _workType;
+  String? _work_type;
+  String? get work_type => _work_type;
   getWorkType() async {
-    // print('get genderId $genderId');
     toggleshemmerShow();
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userId = prefs.getString('userId');
+    String? step = '4';
+    String? work_type = '1';
+
+    Map<String, dynamic> params = {
+      "step": step,
+      "id": userId,
+      "work_type": work_type,
+    };
     Dio dio = Dio();
 
-    var response = await dio.get(baseUrl + '/api/users/upload_profile?'
-        'step=${prefs.getString('step')},' +
-        'id=${prefs.getString('userid')},' +
-        'workType=${prefs.getString('workType')}' ,
+    print(' work_type params response $params');
+    var response = await dio.get(baseUrl + endpointCompeleteProfile, queryParameters: params);
 
-      options: Options(
-        headers: {},
-        //headers: {"authorization": prefs.getString('headerToken')},
-      ),
-    );
-    print(' work type response $response');
     final responseData = json.decode(response.toString());
-    // print('vanderShopList responceData $responseData');
+    print('work_type responseData $response');
 
     try {
       if (responseData['statuscode'] == true) {
-        // await prefs.getString('userId', responseData['id'],);
-        //await prefs.getString('step', responseData['step'],);
-        //await prefs.getString('work_type', responseData['work_type'],),
+        _work_type = work_type;
+        _step = step;
 
-        _workType = responseData['data'];
         notifyListeners();
         toggleshemmerdismis();
       } else {
-        _workType = responseData['data'];
-        notifyListeners();
+        _step = "";
+        userId = "";
+        _work_type = "";
 
+        notifyListeners();
         toggleshemmerdismis();
         print(responseData['message']);
       }
@@ -265,30 +265,38 @@ class CompleteProfileModelPage extends ChangeNotifier {
   String? _children;
   String? get children => _children;
   getChildren() async {
-    // print('get genderId $genderId');
     toggleshemmerShow();
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userId = prefs.getString('userId');
+    String? step = '5';
+    String? children = '1';
+
+    Map<String, dynamic> params = {
+      "step": step,
+      "id": userId,
+      "children": children,
+    };
+
     Dio dio = Dio();
+    var response = await dio.get(baseUrl + endpointCompeleteProfile, queryParameters: params);
+    print(' children params response $params');
 
-    var response = await dio.get(baseUrl + '/api/users/upload_profile?'
-        'step=${prefs.getString('step')},' +
-        'id=${prefs.getString('userid')},' +
-        'children=${prefs.getString('children')}' ,
-
-    );
-    print(' children response $response');
     final responseData = json.decode(response.toString());
+    print(' children responseData $responseData');
 
     try {
       if (responseData['statuscode'] == true) {
-        _children = responseData['data'];
+        _children = children;
+        _step = step;
+
         notifyListeners();
         toggleshemmerdismis();
       } else {
-        _children = responseData['data'];
-        notifyListeners();
+        _step = "";
+        userId = "";
+        _children = "";
 
+        notifyListeners();
         toggleshemmerdismis();
         print(responseData['message']);
       }
@@ -299,38 +307,44 @@ class CompleteProfileModelPage extends ChangeNotifier {
   }
 
 
-
-// api for get gender 22sep->
+// get api for IsSmog 22sep->
   String? _is_smoke ;
   String? get is_smoke => _is_smoke;
-
-
-  getIsSmog(String? step,String? is_smoke) async {
+  ///remaining ui
+  getIsSmoke() async {
     toggleshemmerShow();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString('userId');
+    String? step = '6';
+    String? is_smoke = '1';
+
+
+    Map<String, dynamic> params = {
+      "step": step,
+      "id": userId,
+      "is_smoke": is_smoke,
+    };
 
     Dio dio = Dio();
 
-    var response = await dio.get(baseUrl + "api/users/compelete_profile?step=${prefs.getString("$step")}"
-        + '&' + "id=$userId"
-        + '&' + "is_smoke=${prefs.getString("$is_smoke")}",
-    );
+    var response = await dio.get(baseUrl + endpointCompeleteProfile, queryParameters: params);
+    print(' is_smoke params response $params');
 
     final responseData = json.decode(response.toString());
-    print('upload is_smog responceData $responseData');
+    print('is_smog responseData $responseData');
 
     try {
       if (responseData['statuscode'] == true) {
-        print("is_smog res data: ,$response");
-        print("id:"+prefs.getString('userId')!);
-
+        _is_smoke = is_smoke;
+        _step = step;
 
         notifyListeners();
         toggleshemmerdismis();
       } else {
-        _is_smoke = "";
         _step = "";
+         userId = "";
+        _is_smoke = "";
+
         notifyListeners();
         toggleshemmerdismis();
         print(responseData['message']);
@@ -342,35 +356,42 @@ class CompleteProfileModelPage extends ChangeNotifier {
   }
 
 
-// api for get gender 22sep->
+// get api for IsPet 22sep->
   String? _is_pet ;
   String? get is_pet => _is_pet;
-
-  getIsPet(String? step,String? is_pet) async {
+  ///remaining ui
+  getIsPet() async {
     toggleshemmerShow();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString('userId');
+    String? step = '7';
+    String? is_pet = '1';
+
+    Map<String, dynamic> params = {
+      "step": step,
+      "id": userId,
+      "is_pet": is_pet,
+    };
 
     Dio dio = Dio();
-
-    var response = await dio.get(baseUrl + "api/users/compelete_profile?step=${prefs.getString("$step")}"
-        + '&' + "id=$userId"
-        + '&' + "is_pet=${prefs.getString("$is_pet")}",
-    );
+    print('is_pet params response $params');
+    var response = await dio.get(baseUrl + endpointCompeleteProfile, queryParameters: params);
 
     final responseData = json.decode(response.toString());
-    print('upload is_pet responceData $responseData');
+    print('is_pet responseData $responseData');
 
     try {
       if (responseData['statuscode'] == true) {
-        print("is_pet res data: ,$response");
-        print("id:"+prefs.getString('userId')!);
+        _is_pet = is_pet;
+        _step = step;
 
         notifyListeners();
         toggleshemmerdismis();
       } else {
-        _is_pet = "";
         _step = "";
+        userId = "";
+        _is_pet = "";
+
         notifyListeners();
         toggleshemmerdismis();
         print(responseData['message']);
@@ -382,43 +403,42 @@ class CompleteProfileModelPage extends ChangeNotifier {
   }
 
 
-
-
-// api for get gender 22sep->
+//get api for IsFamily 22sep->
   String? _is_family ;
   String? get is_family => _is_family;
-
-  getIsFamily(String? step,String? is_family) async {
+  ///remaining ui
+  getIsFamily() async {
     toggleshemmerShow();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString('userId');
+    String? step = '8';
+    String? is_family = '1';
+
+    Map<String, dynamic> params = {
+      "step": step,
+      "id": userId,
+      "is_family": is_family,
+    };
 
     Dio dio = Dio();
-
-    var response = await dio.get(baseUrl + "api/users/compelete_profile?step=${prefs.getString("$step")}"
-        + '&' + "id=$userId"
-        + '&' + "is_family=${prefs.getString("$is_family")}",
-    );
+    var response = await dio.get(baseUrl + endpointCompeleteProfile, queryParameters: params);
+    print(' is_family params response $params');
 
     final responseData = json.decode(response.toString());
-    print('upload is_family responceData $responseData');
+    print('is_family responseData $responseData');
 
     try {
       if (responseData['statuscode'] == true) {
-        print("is_family res data: ,$response");
-        print("id:"+prefs.getString('userId')!);
+        _is_family = is_family;
+        _step = step;
 
-
-        //_gender = await responseData["$gender"];
-        //_step = await responseData["$step"];
-
-        print('gender try block response$gender');
-        print('step try block response$step');
         notifyListeners();
         toggleshemmerdismis();
       } else {
-        _gender = "";
+        _is_family = "";
+         userId = "";
         _step = "";
+
         notifyListeners();
         toggleshemmerdismis();
         print(responseData['message']);
@@ -430,37 +450,43 @@ class CompleteProfileModelPage extends ChangeNotifier {
   }
 
 
-// api for get gender 22sep->
+//get api for age 22sep->
   String? _age ;
   String? get age => _age;
-
-
-  getAge(String? step,String? age) async {
+  ///remaining ui
+  getAge() async {
     toggleshemmerShow();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString('userId');
+    String? step = '9';
+    String? age = '20-22';
+
+    Map<String, dynamic> params = {
+      "step": step,
+      "id": userId,
+      "age": age,
+    };
 
     Dio dio = Dio();
+    var response = await dio.get(baseUrl + endpointCompeleteProfile, queryParameters: params);
+    print('age params response $params');
 
-    var response = await dio.get(baseUrl + "api/users/compelete_profile?step=${prefs.getString("$step")}"
-        + '&' + "id=$userId"
-        + '&' + "age=${prefs.getString("$age")}",
-    );
 
     final responseData = json.decode(response.toString());
-    print('upload age responceData $responseData');
+    print('age responseData $responseData');
 
     try {
       if (responseData['statuscode'] == true) {
-        print("age res data: ,$response");
-        print("id:"+prefs.getString('userId')!);
-
+        _age = age;
+        _step = step;
 
         notifyListeners();
         toggleshemmerdismis();
       } else {
-        _age = "";
         _step = "";
+        userId = "";
+        _age = "";
+
         notifyListeners();
         toggleshemmerdismis();
         print(responseData['message']);
@@ -472,38 +498,43 @@ class CompleteProfileModelPage extends ChangeNotifier {
   }
 
 
-
-
-// api for get gender 22sep->
+// get api for Income 22sep->
   String? _income ;
   String? get income => _income;
-
-  getIncome(String? step,String? income) async {
+  getIncome() async {
     toggleshemmerShow();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString('userId');
+    String? step = '10';
+    String? income = '1';
+
+    Map<String, dynamic> params = {
+      "step": step,
+      "id": userId,
+      "income": income,
+    };
+
 
     Dio dio = Dio();
+    var response = await dio.get(baseUrl + endpointCompeleteProfile, queryParameters: params);
+    print(' income params response $params');
 
-    var response = await dio.get(baseUrl + "api/users/compelete_profile?step=${prefs.getString("$step")}"
-        + '&' + "id=$userId"
-        + '&' + "income=${prefs.getString("$income")}",
-    );
 
     final responseData = json.decode(response.toString());
-    print('upload income responceData $responseData');
+    print('income responseData $responseData');
 
     try {
       if (responseData['statuscode'] == true) {
-        print("income res data: ,$response");
-        print("id:"+prefs.getString('userId')!);
-
+        _income = income;
+        _step = step;
 
         notifyListeners();
         toggleshemmerdismis();
       } else {
-        _income = "";
         _step = "";
+         userId = "";
+        _income = "";
+
         notifyListeners();
         toggleshemmerdismis();
         print(responseData['message']);
@@ -515,37 +546,43 @@ class CompleteProfileModelPage extends ChangeNotifier {
   }
 
 
-
-
-// api for get gender 22sep->
+// get api for language 22sep->
   String? _language ;
   String? get language => _language;
-
-  getLanguage(String? step,String? language) async {
+  ///remaining ui
+  getLanguage() async {
     toggleshemmerShow();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString('userId');
+    String? step = '11';
+    String? language = '[en,vi]';
+
+    Map<String, dynamic> params = {
+      "step": step,
+      "id": userId,
+      "language": language,
+    };
+
 
     Dio dio = Dio();
-
-    var response = await dio.get(baseUrl + "api/users/compelete_profile?step=${prefs.getString("$step")}"
-        + '&' + "id=$userId"
-        + '&' + "language=${prefs.getString("$language")}",
-    );
+    var response = await dio.get(baseUrl + endpointCompeleteProfile, queryParameters: params);
+    print(' language params response $params');
 
     final responseData = json.decode(response.toString());
-    print('upload language responceData $responseData');
+    print('language responseData $responseData');
 
     try {
       if (responseData['statuscode'] == true) {
-        print("language res data: ,$response");
-        print("id:"+prefs.getString('userId')!);
+        _language = language;
+        _step = step;
 
         notifyListeners();
         toggleshemmerdismis();
       } else {
-        _language = "";
         _step = "";
+        userId = "";
+        _language = "";
+
         notifyListeners();
         toggleshemmerdismis();
         print(responseData['message']);
@@ -557,8 +594,10 @@ class CompleteProfileModelPage extends ChangeNotifier {
   }
 
 
-  // upload documents post api->
-  uploadDocument(String file) async {
+  //post  api for upload documents post api->
+  String? _profilePathUD;
+  String? get profilePathUD => _profilePathUD;
+  postUploadDocument(String file) async {
     String fileName = file.split('/').last;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString('userId');
@@ -571,16 +610,17 @@ class CompleteProfileModelPage extends ChangeNotifier {
     });
     Dio dio = Dio();
     var response =  await dio.post(baseUrl + "api/users/upload_document?id=$userId", data: data);
-    print(' uplode Document responseData $response');
+    print(' upload Document responseData $response');
+
     final responseData = json.decode(response.toString());
 
     try {
       if (responseData['statuscode'] == true) {
-        _profilePath = file;
+        _profilePathUD = file;
         notifyListeners();
         toggleshemmerdismis();
       } else {
-        _profilePath = "";
+        _profilePathUD = "";
         notifyListeners();
         toggleshemmerdismis();
         print(responseData['message']);
@@ -592,30 +632,36 @@ class CompleteProfileModelPage extends ChangeNotifier {
   }
 
 
-
-// api for get gender 22sep->
-
+// get api for currentCompleted 22sep->
+  String? _profileStatus;
+  String? get profileStatus => _profileStatus;
+  /// remaining ui
   getCurrentCompleted() async {
     toggleshemmerShow();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString('userId');
+    String? step = '12';
+
+    Map<String, dynamic> params = {
+      "step": step,
+      "id": userId,
+    };
 
     Dio dio = Dio();
 
-    var response = await dio.get(baseUrl + "api/users/compelete_profile?id=$userId");
+    var response =  await dio.post(baseUrl + "api/users/profile_status?id=$userId", data: params);
 
     final responseData = json.decode(response.toString());
-    print('completed step responceData $responseData');
+    print('completed step responseData $responseData');
 
     try {
       if (responseData['statuscode'] == true) {
-        print("completed step res data: ,$response");
-        print("id:"+prefs.getString('userId')!);
+        //_profilePathUD = file;
 
         notifyListeners();
         toggleshemmerdismis();
       } else {
-        _step = "";
+        _profilePathUD = "";
         notifyListeners();
         toggleshemmerdismis();
         print(responseData['message']);

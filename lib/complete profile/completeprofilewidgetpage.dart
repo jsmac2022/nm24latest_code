@@ -114,13 +114,14 @@ Widget steprs(context, model) {
       headingtext(context, 'Upload your documents'),
       sizedboxheight(22.0),
       uploaddocument(context, 'assets/icons/setting.png', 'Passport/ID',
-          UploaddoumentPage()),
+          UploaddoumentPage(),),
       uploaddocument(context, 'assets/icons/setting.png',
-          'Excerpt from the debt collection register', UploaddoumentPage()),
+          'Excerpt from the debt collection register',
+          UploaddoumentPage(),),
       uploaddocument(context, 'assets/icons/setting.png', 'Family photo',
-          UploaddoumentPage()),
+          UploaddoumentPage(),),
       uploaddocument(context, 'assets/icons/setting.png', 'Other documents',
-          UploaddoumentPage()),
+          UploaddoumentPage(),),
       sizedboxheight(deviceheight(context, 0.05)),
       takeoverbtn(context),
       resetdefaultbtn(context)
@@ -192,7 +193,8 @@ Widget mymaritalstatus(context, model) {
     height: 55,
     elevation: 4,
     radioButtonValue: (value) {
-      model.toggleselectgender(value);
+      //model.toggleselectgender(value);
+       model.getMaritalStatus();
     },
     buttonValues: [
       "Single",
@@ -221,12 +223,9 @@ Widget profesion(model) {
   return AllInputDesign(
     key: Key("fullname"),
     boxshadow: boxShadowcontainer(),
-    // elevation: 4.1,
-    // controller: model.signupname,
+    //controller: model.getWorkType(),
     inputHeaderName: 'Enter Profession',
-    // elevation: 4.0,
     floatingLabelBehavior: FloatingLabelBehavior.never,
-    // boxshadow: boxShadowcontainer(),
     textInputAction: TextInputAction.next,
     autofillHints: [AutofillHints.name],
     keyBoardType: TextInputType.emailAddress,
@@ -248,7 +247,8 @@ Widget mychildren(context, model) {
     height: 55,
     elevation: 5,
     radioButtonValue: (value) {
-      model.toggleselectgender(value);
+      //model.toggleselectgender(value);
+      model.getChildren();
     },
     buttonValues: [
       "No",
@@ -286,7 +286,8 @@ Widget householdincome(context, model) {
     height: 55,
     elevation: 4,
     radioButtonValue: (value) {
-      model.toggleselectgender(value);
+      //model.toggleselectgender(value);
+      model.getIncome();
     },
     buttonValues: [
       "up to € 1,500",
@@ -310,7 +311,7 @@ Widget householdincome(context, model) {
   );
 }
 
-Widget uploaddocument(context, image, title, ontap) {
+Widget uploaddocument(context, image, title, ontap,) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     child: Container(
@@ -328,6 +329,7 @@ Widget uploaddocument(context, image, title, ontap) {
           ),
           trailing: IconButton(
             onPressed: () {
+              //model.postUploadDocument();
               Get.to(ontap);
             },
             icon: Container(
