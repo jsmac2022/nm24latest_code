@@ -37,17 +37,19 @@ class ProfilePage extends StatelessWidget {
                     keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                     child: Column(
                       children: [
-                        sizedboxheight(20.0),
+                        sizedboxheight(16.0), // 20.0
                         profilepic(),
-                        sizedboxheight(20.0),
+                        sizedboxheight(16.0),
                         profilefullname(),
-                        sizedboxheight(20.0),
+                        sizedboxheight(16.0),
                         profileemail(),
-                        sizedboxheight(20.0),
+                        sizedboxheight(16.0),
                         profilemobile(),
-                        sizedboxheight(20.0),
+                        sizedboxheight(16.0),
                         languagedropdown(context, model),
-                        sizedboxheight(20.0),
+                        sizedboxheight(16.0),
+                        profileCv(context, model), //new code for cv section  26-9-22
+                        sizedboxheight(16.0),
                         verifybtn(),
                       ],
                     ),
@@ -55,7 +57,7 @@ class ProfilePage extends StatelessWidget {
                 }),
               ),
             ),
-  bgplaceholder()
+            bgplaceholder()
           ],
         ),
       ),

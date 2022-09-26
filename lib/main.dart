@@ -9,6 +9,7 @@ import 'package:nm24/common/appbar/appbarmodal.dart';
 import 'package:nm24/common/bottomnavbar/bottomnavbar.dart';
 import 'package:nm24/common/bottomnavbar/bottomnavbar_modelpage.dart';
 import 'package:nm24/complete%20profile/completeprofilemodelpage.dart';
+import 'package:nm24/complete%20profile/upload%20cv/uploadcv_modelpage.dart';
 import 'package:nm24/dashboard/dashboardmodelpage.dart';
 import 'package:nm24/dashboard/filtterscreen/filtterscreenmodal.dart';
 import 'package:nm24/forgetpass/enter%20email%20page1/forgetpassmodelpage.dart';
@@ -115,6 +116,8 @@ void main() async {
       ),
       ChangeNotifierProvider(
           create: (context) => OtpVerifyModelPage()
+      ),
+      ChangeNotifierProvider(create: (context) => UploadCVModelPage()
       ),
   
       ],child:const MyApp() ,)

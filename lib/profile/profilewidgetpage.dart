@@ -8,6 +8,7 @@ import 'package:nm24/common/formtextfield/mytextfield.dart';
 import 'package:nm24/common/formtextfield/validations_field.dart';
 import 'package:nm24/common/styles/const.dart';
 import 'package:nm24/complete%20profile/completeprofilepage.dart';
+import 'package:nm24/complete%20profile/upload%20cv/upload_cvpage.dart';
 
 Widget profilepic() {
   return SizedBox(
@@ -155,5 +156,40 @@ Widget verifybtn() {
     elevation: 0,
     borderRadius: borderRadiuscircular(28.0),
     borderColor: colorredlight,
+  );
+}
+
+
+///new code 26 sept
+Widget profileCv(BuildContext context, model) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        'Your CV',
+        style: textstyletitleHeading6(context),
+      ),
+      sizedboxheight(6.0),
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        width: deviceWidth(context, 1.0),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),
+            border: borderCustom()),
+        child: Align(
+          alignment : Alignment.topLeft,
+          child: Button(
+          onPressed: () {
+          Get.to(() => UploadCVPage());},
+            buttonName: 'CV',
+             textColor: colorblack,
+             btnColor: colorWhite,
+             elevation: 0,
+             borderRadius: borderRadiuscircular(12.0),
+             // borderColor: Colors.cyanAccent,
+          ),
+        ),
+
+      ),
+    ],
   );
 }
