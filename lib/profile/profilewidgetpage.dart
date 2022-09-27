@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
 import 'package:nm24/common/commonwidgets/button.dart';
+import 'package:nm24/common/commonwidgets/toast.dart';
 import 'package:nm24/common/formtextfield/mytextfield.dart';
 import 'package:nm24/common/formtextfield/validations_field.dart';
 import 'package:nm24/common/styles/const.dart';
@@ -161,14 +162,11 @@ Widget verifybtn() {
 
 
 ///new code 26 sept
-Widget profileCv(BuildContext context, model) {
+Widget profileCv(BuildContext context, model,formKeyCV) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(
-        'Your CV',
-        style: textstyletitleHeading6(context),
-      ),
+      Text('Your CV', style: textstyletitleHeading6(context),),
       sizedboxheight(6.0),
       Container(
         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -178,8 +176,15 @@ Widget profileCv(BuildContext context, model) {
         child: Align(
           alignment : Alignment.topLeft,
           child: Button(
-          onPressed: () {
-          Get.to(() => UploadCVPage());},
+          onPressed: () async {
+            // if (formKeyCV.currentState.validate) {
+            //     await model.getCV();
+            //     Get.to(() => UploadCVPage());
+            //   } else {
+            //   showFlutterToast('Something went wrong...');
+            // }
+            Get.to(() => UploadCVPage());
+          },
             buttonName: 'CV',
              textColor: colorblack,
              btnColor: colorWhite,

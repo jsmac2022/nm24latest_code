@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:nm24/common/commonwidgets/button.dart';

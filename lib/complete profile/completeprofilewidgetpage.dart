@@ -311,6 +311,74 @@ Widget householdincome(context, model) {
   );
 }
 
+//new code implemented 27-09-->
+Widget householdincome1(context, model) {
+  return CustomRadioButton(
+    horizontal: true,
+    enableShape: true,
+    radius: 10,
+    shapeRadius: 10,
+    height: 55,
+    elevation: 4,
+    radioButtonValue: (value) {
+     // model.toggleselectgender(value);
+      //model.getIncome();
+    },
+    buttonValues: [
+      "$conditionButton",
+      "1,500-3,000 €",
+      "Over € 3,000",
+    ],
+    buttonLables: [
+      "$conditionButton",
+      "1,500-3,000 €",
+      "Over € 3,000",
+    ],
+    selectedColor: colorredlight,
+    selectedBorderColor: colorredlight,
+    unSelectedBorderColor: colorWhite,
+    unSelectedColor: colorWhite,
+    buttonTextStyle: ButtonTextStyle(
+        selectedColor: colorWhite,
+        unSelectedColor: colorblack,
+        textStyle: textstyletitleHeading6(context)!
+            .copyWith(fontWeight: fontWeight700)),
+  );
+}
+
+//new code implemented 27-09-->
+enum Condition { no, yes }
+Condition? _cnd = Condition.no;
+Widget conditionButton(){
+  return Column(
+    children: <Widget>[
+      ListTile(
+        title: const Text('No'),
+        leading: Radio<Condition>(
+          value: Condition.no,
+          groupValue: _cnd,
+          onChanged: (Condition? value) {
+            _cnd = value;
+          },
+        ),
+      ),
+      ListTile(
+        title: const Text('Yes'),
+        leading: Radio<Condition>(
+          value: Condition.yes,
+          groupValue: _cnd,
+          onChanged: (Condition? value) {
+            _cnd = value;
+          },
+        ),
+      ),
+    ],
+  );
+}
+
+
+
+
 Widget uploaddocument(context, image, title, ontap,) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),

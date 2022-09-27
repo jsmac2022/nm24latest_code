@@ -177,18 +177,6 @@ class CompleteProfileModelPage extends ChangeNotifier {
     print(' martial_status params response $params');
     var response = await dio.get(baseUrl + endpointCompeleteProfile, queryParameters: params);
 
-    /*var response = await dio.get(baseUrl + "api/users/compelete_profile?id="
-        "prefs.getString('$userId')" + "&step=$step" + "&gender=$gender", queryParameters: params);
-    print(' gender responseData $response');*/
-
-
-    // var response = await dio.get(baseUrl + '/api/users/upload_profile?'
-    //     'step=${prefs.getString('step')},' +
-    //     'id=${prefs.getString('userid')},' +
-    //     'marital_status=${prefs.getString('marital_status')}',
-    // );
-
-
     final responseData = json.decode(response.toString());
     print(' martial_status responseData $responseData');
 

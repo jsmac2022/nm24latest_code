@@ -12,34 +12,29 @@ class UploadCVPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<UploadCVModelPage>(builder: (context, model, _) {
-      return WillPopScope(
-        onWillPop: () {
-          return onWillPop(context); //ProfilePage
-        },
-        child: Stack(
-          children: [
-            Scaffold(
-              appBar: appbarbackbutton(context, 'YOUR CV'),
-              body: Container(
-                padding: const EdgeInsets.all(6.0),
-                width: deviceWidth(context, 1.0),
-                child: Consumer<UploadCVModelPage>(builder: (context, model, _) {
-                  return SingleChildScrollView(
-                    keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                       // sizedboxheight(5.0),
-                        cvPage(context),
-                      ],
-                    ),
-                  );
-                }),
-              ),
+      return Stack(
+        children: [
+          Scaffold(
+            appBar: appbarbackbutton(context, 'YOUR CV'),
+            body: Container(
+              padding: const EdgeInsets.all(6.0),
+              width: deviceWidth(context, 1.0),
+              child: Consumer<UploadCVModelPage>(builder: (context, model, _) {
+                return SingleChildScrollView(
+                  keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                     // sizedboxheight(5.0),
+                      cvPage(context),
+                    ],
+                  ),
+                );
+              }),
             ),
-             // bgplaceholder()
-          ],
-        ),
+          ),
+           // bgplaceholder()
+        ],
       );
     });
   }

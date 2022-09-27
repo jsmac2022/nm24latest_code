@@ -7,7 +7,7 @@ String loginEndpoint = 'api/users/login';
 String verifyOtpEndpoint = 'api/users/verify_otp';
 
 //api forget pass end points --> 14 sep
-String forgetpassEndpoint = 'forget';
+String forgetpassEndpoint = 'api/users/forgot_password?';
 String endpointResendOtp = 'resend_otp';
 String propertySearchWithLocationEndpoint = 'api/property/properties_location';
 
@@ -17,7 +17,6 @@ String endpointCompeleteProfile = 'api/users/compelete_profile?';  //profile api
 
 String endpointProfileStatus = 'api/users/profile_status?';
 String endpointAllStepForm = 'api/users/compelete_profile_mob'; //profile api call using post method[]
-
 
 
 

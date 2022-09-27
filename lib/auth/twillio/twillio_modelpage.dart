@@ -17,7 +17,7 @@ class TwillioModelPage extends ChangeNotifier {
   TwilioPhoneVerify _twilioPhoneVerify = TwilioPhoneVerify(
       accountSid: accountSid, // replace with Account SID
       serviceSid: serviceSid, // replace with Service SID
-      authToken: authToken, // replace with Auth Token
+      authToken: authToken, // replace wi  th Auth Token
       );
 
   String _phoneNumber = '';

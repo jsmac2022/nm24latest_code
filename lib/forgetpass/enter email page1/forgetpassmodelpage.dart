@@ -28,18 +28,18 @@ class ForgetPassModelPage extends ChangeNotifier {
   var _firebasetoken = '';
   get firebasetoken => _firebasetoken;
 
-  sandOtpfpass(context) async {
+  /*  sandOtpfpass(context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    Future.delayed(Duration(milliseconds: 300));
 
+    Future.delayed(const Duration(milliseconds: 300));
     await FirebaseMessaging.instance.getToken().then((value) {
       _firebasetoken = value!;
       notifyListeners();
     });
     Dio dio = Dio();
 
-    Map<String, dynamic> rawData = {
-      "mobile": fpassemail.text,
+     Map<String, dynamic> rawData = {
+      "email": fpassemail.text,
       "deviceToken": firebasetoken
     };
     // print('forget pass peram  $rawData');
@@ -48,8 +48,48 @@ class ForgetPassModelPage extends ChangeNotifier {
     final responseData = json.decode(response.toString());
     print('forget pass responseData  $responseData');
 
+
     try {
-      if (responseData['success'] == true) {
+      if (responseData['statuscode'] == true) {
+        await prefs.remove('userId');
+        await prefs.setString('userId', responseData['data'][0]['Customer']['id'],);
+        print('userid ----> ${prefs.getString('userId')}');
+        await Provider.of<TwillioModelPage>(context, listen: false)
+            .otpsandtwilio('+91', responseData['data'][0]['Customer']['mobile'],
+            'forgetpassword');
+
+        notifyListeners();
+        fpassemail.clear();
+        notifyListeners();
+      } else {
+        apiErrorAlertdialog(context, 'Email Does Not Exist');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }*/
+
+  String? _email ;
+  String? get email => _email;
+  //new code 27-09
+  sandOtpfpass(context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    Future.delayed(const Duration(milliseconds: 300));
+    await FirebaseMessaging.instance.getToken().then((value) {
+      _firebasetoken = value!;
+      notifyListeners();
+    });
+    Dio dio = Dio();
+
+    var response =  await dio.get(baseUrl + "api/users/forgot_password?email=$fpassemail",);
+    print('forget pass peram  $response');
+
+    final responseData = json.decode(response.toString());
+    print('forget pass responseData $responseData');
+
+    try {
+      if (responseData['statuscode'] == true) {
         await prefs.remove('userId');
         await prefs.setString('userId', responseData['data'][0]['Customer']['id'],);
         print('userid ----> ${prefs.getString('userId')}');

@@ -12,7 +12,9 @@ import 'porfilemodelpage.dart';
 import 'profilewidgetpage.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  ProfilePage({Key? key}) : super(key: key);
+
+  final GlobalKey<FormState> formKeyCV = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class ProfilePage extends StatelessWidget {
                         sizedboxheight(16.0),
                         languagedropdown(context, model),
                         sizedboxheight(16.0),
-                        profileCv(context, model), //new code for cv section  26-9-22
+                        profileCv(context, model,formKeyCV), //new code for cv section  26-9-22
                         sizedboxheight(16.0),
                         verifybtn(),
                       ],

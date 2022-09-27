@@ -48,7 +48,7 @@ Widget forgetpassemail(model) {
   return AllInputDesign(
     key: Key("email1"),
     hintText: 'Email',
-    // controller: model.loginEmail,
+    controller: model.fpassemail,
     autofillHints: [AutofillHints.email],
     textInputAction: TextInputAction.next,
     prefixIcon: Image(image: AssetImage('assets/icons/email.png')),
@@ -65,7 +65,8 @@ Widget sandotpbtn(context, model,formKeyforget) {
     onPressed: () {
        if (formKeyforget.currentState.validate()) {
           // model.forgetpasssubmit(context);
-         Get.to(() => OtpVeryfyPage());
+         model.sandOtpfpass(context);
+        Get.to(() => OtpVeryfyPage());
       } else {
         model.toggleautovalidate();
       }
