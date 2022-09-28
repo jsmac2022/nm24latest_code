@@ -8,6 +8,27 @@ class UploadCVModelPage extends ChangeNotifier{
   bool _isShimmer = false;
   bool get isShimmer => _isShimmer;
 
+  // String? _cvName;
+  // String? get cvName => _cvName;
+  //
+  // String? _cvEmail;
+  // String? get cvEmail => _cvEmail;
+  //
+  // String? _cvMobile;
+  // String? get cvMobile => _cvMobile;
+  //
+  // String? _cvTotalProperty;
+  // String? get cvTotalProperty => _cvTotalProperty;
+
+  final GlobalKey<FormState> formKeysignup = GlobalKey<FormState>();
+  TextEditingController cvName = TextEditingController();
+ // TextEditingController cvEmail = TextEditingController();
+//  TextEditingController cvMobile = TextEditingController();
+ // TextEditingController cvTotalProperty = TextEditingController();
+ // TextEditingController mygender = TextEditingController();
+ // TextEditingController myMarritalStatus = TextEditingController();
+ // TextEditingController Workas = TextEditingController();
+
   toggleshemmerShow() {
     _isShimmer = true;
     notifyListeners();
@@ -29,8 +50,14 @@ class UploadCVModelPage extends ChangeNotifier{
     String? userId = prefs.getString('userId');
     print('userId---- $userId');
 
+
+    Map<String, dynamic> params = {
+      "id": userId,
+      "username": cvName,
+    };
+
     Dio dio = Dio();
-    var response = await dio.get(baseUrl + "api/users/profile?id=$userId");
+    var response = await dio.get(baseUrl + "api/users/profile?id=$userId,", queryParameters: params);
     print(' get cv profile response $response');
 
     final responseData = json.decode(response.toString());
@@ -57,3 +84,4 @@ class UploadCVModelPage extends ChangeNotifier{
   }
 
 }
+

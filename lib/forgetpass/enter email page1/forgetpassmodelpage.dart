@@ -82,7 +82,7 @@ class ForgetPassModelPage extends ChangeNotifier {
     });
     Dio dio = Dio();
 
-    var response =  await dio.get(baseUrl + "api/users/forgot_password?email=$fpassemail",);
+    var response =  await dio.get(baseUrl + "api/users/forgot_password?email=jeet27@gmail.com",);
     print('forget pass peram  $response');
 
     final responseData = json.decode(response.toString());

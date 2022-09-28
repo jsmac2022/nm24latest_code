@@ -70,7 +70,6 @@ Widget sandotpbtn(context, model,formKeyforget) {
       } else {
         model.toggleautovalidate();
       }
-  
     },
   );
 }

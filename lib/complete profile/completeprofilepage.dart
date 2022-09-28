@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:nm24/common/appbar/appbarbackbutton.dart';
 import 'package:nm24/common/commonwidgets/commonwidgets.dart';
@@ -20,8 +19,6 @@ class CompleteProfilePage extends StatelessWidget {
         child: Stack(
           children: [
             Scaffold(
-              //  extendBodyBehindAppBar: true,
-               
               appBar: appbarbackbutton(context, 'Complete Profile'),
               body: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -32,7 +29,7 @@ class CompleteProfilePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                          sizedboxheight(10.0),
+                        sizedboxheight(10.0),
                         linearprogressindicator(model),
                         sizedboxheight(22.0),
                         steprs(context, model),

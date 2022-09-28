@@ -105,11 +105,11 @@ Widget steprs(context, model) {
       mychildren(context, model),
       sizedboxheight(deviceheight(context, 0.1)),
     ] else if (model.progressStep == 6) ...[
-      sizedboxheight(2.0),
+     // sizedboxheight(2.0),
      // headingtext(context, 'My monthly net Household income'),
     // sizedboxheight(deviceheight(context, 0.03)),
       householdincome1(context, model),
-      sizedboxheight(deviceheight(context, 0.05)),
+     // sizedboxheight(deviceheight(context, 0.05)),
     ] else if (model.progressStep == 7) ...[
       sizedboxheight(22.0),
       headingtext(context, 'Upload your documents'),
@@ -316,46 +316,72 @@ Widget householdincome(context, model) {
 enum Condition { no, yes }
 Condition? _cnd = Condition.no;
 
+bool valuefirst = true;
+bool valuesecond = true;
+bool valuethird = false;
+bool valuefourth = false;
+bool valuefifth = false;
+bool valuesixth = false;
+
+// Initial Selected Value
+String dropdownvalue = '90,000 - 100,000';
+// List of items in our dropdown menu
+var items = [
+  '90,000 - 100,000',
+  '100,000 - 200,000',
+  '200,000 - 300,000',
+];
+
+
 Widget householdincome1(context, model) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
     child: Column(
       children: [
+
         Container(
           decoration: BoxDecoration(
               color: colorWhite,
               border: borderCustomlight(),
               boxShadow: boxShadowcontainer(),
               borderRadius: borderRadiuscircular(12.0)),
-          child: RadioListTile(
-              //minLeadingWidth: 5,
-              title: Text('Are you Smoke?', style: textstyletitleHeading6(context),),
-                value: Condition.yes,
-                groupValue: _cnd,
-                onChanged: (Condition? value) {
-                  if(Condition.yes==MaterialState.selected) {
-                    _cnd = value;
-                  }
-                }
-              // leading: Radio<Condition>(
-              //   value: Condition.yes,
-              //   groupValue: _cnd,
-              //   onChanged: (Condition? value) {
-              //     _cnd = value;
-              //   },
-              // ),
-             // trailing: Radio<Condition>(
-             //    value: Condition.no,
-             //    groupValue: _cnd,
-             //    onChanged: (Condition? value) {
-             //      _cnd = value;
-             //    },
-             //  ),
 
+          child: Column(
+            children:<Widget> [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Text('Are you Smoke?',style: textstyletitleHeading6(context), ),
+                  SizedBox(width: 40,),
+
+                  Radio(
+                    activeColor: Colors.black12,
+                    value: valuefirst,
+                    groupValue: valuefirst,
+                    onChanged: (bool? value) {
+                      valuefirst = value!;
+                    },
+                  ),
+                 Text('No',style: textstyletitleHeading6(context), ),
+
+                  Radio(
+                    hoverColor: Colors.black12,
+                    activeColor: Colors.orange,
+                    focusColor: Colors.transparent,
+                    value: valuesecond,
+                    groupValue: valuesecond,
+                    onChanged: (bool? value) {
+                      valuesecond = value!;
+                    },
+                  ),
+                 Text('Yes',style: textstyletitleHeading6(context), ),
+
+                ],
+              ),
+            ],
            ),
-
           ),
-        sizedboxheight(15.0),
+        sizedboxheight(12.0),
 
         Container(
           decoration: BoxDecoration(
@@ -363,8 +389,7 @@ Widget householdincome1(context, model) {
               border: borderCustomlight(),
               boxShadow: boxShadowcontainer(),
               borderRadius: borderRadiuscircular(12.0)),
-          child: RadioListTile(
-            //minLeadingWidth: 5,
+          /*child: RadioListTile(
               title: Text('Do You have Pet?', style: textstyletitleHeading6(context),),
               value: Condition.yes,
               groupValue: _cnd,
@@ -373,9 +398,42 @@ Widget householdincome1(context, model) {
                   _cnd = value;
                 }
               }
+          ),*/
+          child: Column(
+            children:<Widget> [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Text('Do You have Pet?',style: textstyletitleHeading6(context), ),
+                  SizedBox(width: 40,),
+
+                  Radio(
+                    hoverColor: Colors.black12,
+                    activeColor: Colors.orange,
+                    focusColor: Colors.transparent,
+                    value: valuethird,
+                    groupValue: valuethird,
+                    onChanged: (bool? value) {
+                      valuethird = value!;
+                    },
+                  ),
+                  Text('No',style: textstyletitleHeading6(context), ),
+                  Radio(
+                    activeColor: Colors.black12,
+                    value: valuefourth,
+                    groupValue: valuefourth,
+                    onChanged: (bool? value) {
+                      valuefourth = value!;
+                    },
+                  ),
+                  Text('Yes',style: textstyletitleHeading6(context), ),
+
+                ],
+              ),
+            ],
           ),
         ),
-        sizedboxheight(15.0),
+        sizedboxheight(12.0),
 
         Container(
           decoration: BoxDecoration(
@@ -383,47 +441,50 @@ Widget householdincome1(context, model) {
               border: borderCustomlight(),
               boxShadow: boxShadowcontainer(),
               borderRadius: borderRadiuscircular(12.0)),
-          child: RadioListTile(
-            //minLeadingWidth: 5,
-              title: Text('Do you have family/kids', style: textstyletitleHeading6(context),),
-              value: Condition.yes,
-              groupValue: _cnd,
-              onChanged: (Condition? value) {
-                if(Condition.yes==MaterialState.selected) {
-                  _cnd = value;
-                }
-              }
-            // leading: Radio<Condition>(
-            //   value: Condition.yes,
-            //   groupValue: _cnd,
-            //   onChanged: (Condition? value) {
-            //     _cnd = value;
-            //   },
-            // ),
-            // trailing: Radio<Condition>(
-            //    value: Condition.no,
-            //    groupValue: _cnd,
-            //    onChanged: (Condition? value) {
-            //      _cnd = value;
-            //    },
-            //  ),
+          child: Column(
+            children:<Widget> [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Text('Have family/kids?',style: textstyletitleHeading6(context), ),
+                  SizedBox(width: 40,),
 
+                  Radio(
+                    hoverColor: Colors.black12,
+                    activeColor: Colors.orange,
+                    focusColor: Colors.transparent,
+                    value: valuefifth,
+                    groupValue: valuefifth,
+                    onChanged: (bool? value) {
+                      valuefifth = value!;
+                    },
+                  ),
+                  Text('No',style: textstyletitleHeading6(context), ),
+                  Radio(
+                    activeColor: Colors.black12,
+                    value: valuesixth,
+                    groupValue: valuesixth,
+                    onChanged: (bool? value) {
+                      valuesixth = value!;
+                    },
+                  ),
+                  Text('Yes',style: textstyletitleHeading6(context), ),
+
+                ],
+              ),
+            ],
           ),
-
         ),
-        sizedboxheight(15.0),
+        sizedboxheight(12.0),
 
-       Align(
+        Align(
          alignment: Alignment.centerLeft,
-           child: Text('Age',style: TextStyle(fontSize: 12),)),
-
-          CustomRadioButton(
+           child: Text('Age',style: TextStyle(fontSize: 14),)),
+        CustomRadioButton(
             enableShape: true,
-            //enableButtonWrap: true,
             radius: 10,shapeRadius: 10,
             height: 50,elevation: 2,width: 150,
             radioButtonValue: (value) {
-          //model.toggleselectgender(value);
             model.getChildren();
             },
           buttonValues: [
@@ -434,106 +495,84 @@ Widget householdincome1(context, model) {
             "From",
             "To",
           ],
-          selectedColor: colorredlight,
-          selectedBorderColor: colorredlight,
-          unSelectedBorderColor: colorWhite,
-          unSelectedColor: colorWhite,
-          buttonTextStyle: ButtonTextStyle(
-          selectedColor: colorWhite,
-          unSelectedColor: colorblack,
-          textStyle: TextStyle(fontSize: 16),
+            selectedColor: colorredlight,
+            selectedBorderColor: colorredlight,
+            unSelectedBorderColor: colorWhite,
+            unSelectedColor: colorWhite,
+            buttonTextStyle: ButtonTextStyle(
+            selectedColor: colorWhite,
+            unSelectedColor: colorblack,
+            textStyle: TextStyle(fontSize: 16),
+
             ),
           ),
-        sizedboxheight(15.0),
+        sizedboxheight(12.0),
 
         Align(
             alignment: Alignment.centerLeft,
-            child: Text('Annual Gross Income(CHF)',style: TextStyle(fontSize: 12),)),
-
+            child: Text('Annual Gross Income(CHF)',style: TextStyle(fontSize: 14),)),
         Container(
           decoration: BoxDecoration(
               color: colorWhite,
               border: borderCustomlight(),
               boxShadow: boxShadowcontainer(),
-              borderRadius: borderRadiuscircular(12.0)),
-          child: RadioListTile(
-            //minLeadingWidth: 5,
-              title: Text('90,000-100,000', style: textstyletitleHeading6(context),),
-              value: Condition.yes,
-              groupValue: _cnd,
-              onChanged: (Condition? value) {
-                if(Condition.yes==MaterialState.selected) {
-                  _cnd = value;
-                }
-              }
+              borderRadius: borderRadiuscircular(12.0),
+          ),
+
+          child: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Container(
+              width: 310.0,
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton(style: textstyletitleHeading6(context) ,
+                  value: dropdownvalue,  // Initial Value
+                  icon: const Icon(Icons.keyboard_arrow_down),   // Down Arrow Icon
+                  items: items.map((String items) {      // Array list of items
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    dropdownvalue = newValue!;
+                  },
+                ),
+              ),
+            ),
           ),
         ),
-        sizedboxheight(15.0),
+        sizedboxheight(12.0),
 
-          Container(
-            decoration: BoxDecoration(
-            color: colorWhite,
-            border: borderCustomlight(),
-            boxShadow: boxShadowcontainer(),
-            borderRadius: borderRadiuscircular(12.0)),
-        child: CustomRadioButton(
-            horizontal: false,
-            //enableShape: true,
-            radius: 30,
-            shapeRadius: 30,
-            height: 50,
-            elevation: 3,
-
-            radioButtonValue: (value) {
-            //model.toggleselectgender(value);
-            model.getMaritalStatus();
-            },
-            buttonValues: [
-            "English",
-            "German",
-            "Spanish",
-            ],
-            buttonLables: [
-              "English",
-              "German",
-              "Spanish",
-            ],
-            selectedColor: colorredlight,
-            selectedBorderColor: colorredlight,
-            unSelectedColor: colorWhite,
-            unSelectedBorderColor: colorWhite,
-            buttonTextStyle: ButtonTextStyle(
-            selectedColor: colorWhite,
-            unSelectedColor: colorblack,
-            textStyle: TextStyle(fontSize: 16)),
-            ),
-          )
-
-        /*CustomRadioButton(
-          enableShape: true,
-          enableButtonWrap: true,
-          radius: 10,shapeRadius: 10,
-          height: 50,elevation: 1,width: 300,
-          radioButtonValue: (value) {
-            //model.toggleselectgender(value);
-            model.getChildren();
-          },
-          buttonValues: [
-            "90,000-100,000",
-          ],
-          buttonLables: [
-            "90,000-100,000",
-          ],
-          selectedColor: colorredlight,
-          selectedBorderColor: colorredlight,
-          unSelectedBorderColor: colorWhite,
-          unSelectedColor: colorWhite,
-          buttonTextStyle: ButtonTextStyle(
-            selectedColor: colorWhite,
-            unSelectedColor: colorblack,
-            textStyle: TextStyle(fontSize: 16),
-          ),
-        )*/
+        Align(
+            alignment: Alignment.centerLeft,
+            child: Text('Select language',style: TextStyle(fontSize: 14),),),
+        CustomRadioButton(
+           enableShape: true, horizontal: false,
+           radius: 10, shapeRadius: 10,
+           height: 50, elevation: 2,
+           radioButtonValue: (value) {
+             model.getMaritalStatus();
+           },
+           buttonValues: [
+           "English",
+           "German",
+           "Spanish",
+           ],
+           buttonLables: [
+             "English",
+             "German",
+             "Spanish",
+           ],
+           selectedColor: colorredlight,
+           selectedBorderColor: colorredlight,
+           unSelectedColor: colorWhite,
+           unSelectedBorderColor: colorWhite,
+           buttonTextStyle: ButtonTextStyle(
+           selectedColor: colorWhite,
+           unSelectedColor: colorblack,
+           textStyle: TextStyle(fontSize: 16)),
+           ),
+        sizedboxheight(12.0),
 
         ],
       ),
